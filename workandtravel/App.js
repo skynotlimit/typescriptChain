@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
-  TouchableHighlight,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -34,7 +34,10 @@ export default function App() {
       return;
     }
     setText("");
+    setTodo(newTodo);
   };
+  const newTodo = { ...todo, [Date.now()]: { text, work } };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -59,6 +62,13 @@ export default function App() {
           onChangeText={onChangeText}
           placeholder={work ? "Add a To do" : "Add Play"}
         />
+        <ScrollView>
+          {Object.keys(todo).map((key) => (
+            <View style={styles.todo} key={key}>
+              <Text style={styles.todoText}>{todo[key].text}</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -86,5 +96,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 30,
     fontSize: 18,
+  },
+  todo: {
+    marginTop: 10,
+    marginHorizontal: 5,
+    backgroundColor: "gray",
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    borderRadius: 10,
+  },
+  todoText: {
+    color: "white",
+    fontSize: 23,
+    fontWeight: "600",
   },
 });
