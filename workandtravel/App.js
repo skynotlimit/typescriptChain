@@ -1,25 +1,64 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   TouchableHighlight,
   StyleSheet,
   Text,
   TouchableOpacity,
-  TouchableWithoutFeedback,
+  TextInput,
   View,
 } from "react-native";
 import { theme } from "./colors";
 import { Touchable } from "react-native";
 export default function App() {
+  //현재 탭의 상태
+  const [work, setWork] = useState(true);
+  //입력한 텍스트 상태관리
+  const [text, setText] = useState("");
+
+  //todo리스트 관리(해시맵을 만들기 위해 []가 아닌 {}를 사용)
+  const [todo, setTodo] = useState({});
+
+  //현재 탭 상태 변경함수
+  const travel = () => {
+    setWork(false);
+  };
+  const working = () => {
+    setWork(true);
+  };
+  const onChangeText = (e) => {
+    setText(e);
+  };
+  const addTodo = () => {
+    if (text === "") {
+      return;
+    }
+    setText("");
+  };
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => console.log("press1")}>
-          <Text style={styles.btnText}>To DOs</Text>
+        <TouchableOpacity onPress={working}>
+          <Text style={{ ...styles.btnText, color: work ? "white" : "black" }}>
+            DevelopTime!
+          </Text>
         </TouchableOpacity>
-        <TouchableWithoutFeedback onPress={() => console.log("press2")}>
-          <Text style={styles.btnText}>PlayTime!</Text>
-        </TouchableWithoutFeedback>
+        <TouchableOpacity onPress={travel}>
+          <Text style={{ ...styles.btnText, color: work ? "black" : "white" }}>
+            PlayTime!
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View>
+        <TextInput
+          style={styles.input}
+          value={text}
+          returnKeyType="done"
+          onSubmitEditing={addTodo}
+          onChangeText={onChangeText}
+          placeholder={work ? "Add a To do" : "Add Play"}
+        />
       </View>
     </View>
   );
@@ -39,6 +78,13 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 38,
     fontWeight: "600",
-    color: "white",
+  },
+  input: {
+    backgroundColor: "white",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    marginTop: 30,
+    fontSize: 18,
   },
 });
