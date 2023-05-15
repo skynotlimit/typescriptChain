@@ -1,0 +1,9 @@
+{
+  //컴파일 할 폴더 리스트
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "build",
+    //타입스크립트가 어떤 버젼의 JS로 컴파일 될지를 설정
+    "target": "ES6"
+  }
+}
