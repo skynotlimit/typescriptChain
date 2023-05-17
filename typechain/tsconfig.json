@@ -4,6 +4,10 @@
   "compilerOptions": {
     "outDir": "build",
     //타입스크립트가 어떤 버젼의 JS로 컴파일 될지를 설정
-    "target": "ES6"
+    "target": "ES6",
+    //ts코드가 어디서 작동할지를 설정. 옵션 내용에 따라 자동완성 옵션들이 달라짐짐
+    "lib": ["ES6", "DOM"],
+    "strict": true,
+    "allowJs": true
   }
 }
